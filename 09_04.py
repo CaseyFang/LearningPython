@@ -16,7 +16,7 @@ for sender in lst:
 
 bigcount = None
 bigword = None
-for word,count in list(words.items()):
+for word,count in words.items():
     if bigcount is None or count>bigcount:
         bigword=word
         bigcount=count
