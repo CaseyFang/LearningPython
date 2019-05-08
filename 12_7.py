@@ -14,21 +14,35 @@ ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
-#http://py4e-data.dr-chuck.net/comments_211123.html
+#http://py4e-data.dr-chuck.net/known_by_Fikret.html
 
-url = input('Enter - ')
+url = input('Enter URL: ')
+if len(url)<1:
+    url = ' http://py4e-data.dr-chuck.net/known_by_Fikret.html'
+    
+count=float(input("Enter count: "))
+
+print("Retrieving:",url)
+
 html = urllib.request.urlopen(url,context=ctx).read()
-soup = BeautifulSoup(html,'html.parser')
 
-count = 0
-value = 0
-# Retrieve all of the anchor tags
-tags = soup('span')
-for tag in tags:
-    # Look at the parts of a tag
-    x=float(tag.contents[0])
-    count = count+1
-    value = value+x
+if count > 0 :
+    soup = BeautifulSoup(html,'html.parser')
+    urllst =[]
+    tags = soup('a')
+    for tag in tags:
+        urllst.append(tag.get('href',None))
+    print("Retrieving:",urllst[6])
+    count = count-1
+    html = urllib.request.urlopen(urllst[6],context=ctx).read()
 
-print("Count ",int(count))
-print("Sum ",int(value))
+
+
+
+#soup = BeautifulSoup(html,'html.parser')
+#tags = soup('a')
+#urllst=[]
+#for tag in tags:
+#create html list
+#    urllst.append(tag.get('href',None))
+#print(urllst[2])
