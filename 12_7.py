@@ -18,9 +18,10 @@ ctx.verify_mode = ssl.CERT_NONE
 
 url = input('Enter URL: ')
 if len(url)<1:
-    url = ' http://py4e-data.dr-chuck.net/known_by_Meshach.html'
+    url = 'http://py4e-data.dr-chuck.net/known_by_Meshach.html'
     
 count=float(input("Enter count: "))
+p = float(input("Enter position: "))-1
 
 print("Retrieving:",url)
 
@@ -32,9 +33,9 @@ while count > 0 :
     tags = soup('a')
     for tag in tags:
         urllst.append(tag.get('href',None))
-    print("Retrieving:",urllst[17])
+    print("Retrieving:",urllst[int(p)])
     count = count-1
-    html = urllib.request.urlopen(urllst[17],context=ctx).read()
+    html = urllib.request.urlopen(urllst[int(p)],context=ctx).read()
 
 
 
